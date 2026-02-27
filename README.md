@@ -8,12 +8,12 @@ Designed for producers, sound designers, and researchers, W1 Hit focuses on cont
 
 ✨ Features
 
-🧠 Train on single-voice MIDI drum patterns
-🎚 Generate new rhythms and variations
-🥁 Velocity-aware output (not just note placement)
-🎛 Parameter-controlled generation
-⚡ Real-time Ableton Live integration
-🎹 MIDI-native workflow (no audio preprocessing)
+🧠 Train on single-voice MIDI drum patterns  
+🎚 Generate new rhythms and variations  
+🥁 Velocity-aware output (not just note placement)  
+🎛 Parameter-controlled generation  
+⚡ Real-time Ableton Live integration  
+🎹 MIDI-native workflow (no audio preprocessing)  
 
 🧠 How It Works
 
@@ -26,11 +26,11 @@ This enables musically coherent results suitable for production workflows.
 
 🎛 Use Cases
 
-* Drum pattern generation for producers
-*Creating variations of existing grooves
-*AI-assisted composition tools
-*Symbolic music generation research
-*Max for Live instrument development
+* Drum pattern generation for producers  
+*Creating variations of existing grooves  
+*AI-assisted composition tools  
+*Symbolic music generation research  
+*Max for Live instrument development  
 
 📂 Project Structure
 

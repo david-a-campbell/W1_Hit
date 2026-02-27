@@ -1,9 +1,8 @@
 # 🎛 W1 Hit
+### An AI-powered MIDI rhythm generator with Ableton Live integration
 
 **Music is defined as a sound that repeats.**  
 **Rhythm shares the same definition and thus is the basis of all music.**
-
-AI-powered MIDI rhythm generator with Ableton Live integration
 
 W1 Hit is an AI system for generating expressive single-voice drum patterns. It trains on MIDI rhythms and produces musically coherent variations, fills, and new sequences that can be inserted directly into Ableton Live using a Max for Live device.
 

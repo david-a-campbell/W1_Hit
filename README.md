@@ -118,3 +118,10 @@ Contributions, issues, and suggestions are welcome.
 
 🎧 About
 Created by W1NGY — a project exploring AI-assisted music production tools.
+
+🇯🇲 Here are some example songs I created using W1_Hit. Samples contain vocals from Splice:  
+[Riddim 1](https://drive.google.com/file/d/1_0SbdAahy8-wQNbpLn0izOkheZ4mTRIL/view?usp=sharing)  
+[Riddim 2](https://drive.google.com/file/d/1A7YmxghzXO1f03oh6YUJPuZ4DZBoisaK/view?usp=sharing)  
+[Riddim 3](https://drive.google.com/file/d/1oqbPUerFjXpN8j4oxPI2FK8zR71hyeVt/view?usp=sharing)  
+[Riddim 4](https://drive.google.com/file/d/13NxNwOmxnKZjr7FRSggYpGjnPOHLx6pq/view?usp=sharing)  
+

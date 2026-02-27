@@ -1,4 +1,7 @@
-🎛 W1 Hit
+# 🎛 W1 Hit
+
+**Music is defined as a sound that repeats.**  
+**Rhythm shares the same definition and thus is the basis of all music.**
 
 AI-powered MIDI rhythm generator with Ableton Live integration
 

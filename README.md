@@ -29,10 +29,10 @@ This enables musically coherent results suitable for production workflows.
 🎛 Use Cases
 
 * Drum pattern generation for producers  
-*Creating variations of existing grooves  
-*AI-assisted composition tools  
-*Symbolic music generation research  
-*Max for Live instrument development  
+* Creating variations of existing grooves  
+* AI-assisted composition tools  
+* Symbolic music generation research  
+* Max for Live instrument development  
 
 📂 Project Structure
 

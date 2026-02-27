@@ -71,10 +71,10 @@ pip install -r requirements.txt
 ```
 (Recommended: use a virtual environment)
 
-3) Ableton Live Setup
-  a. Install Max for Live
-  b. Copy the Max MIDI Effect folder into your Ableton project or device library
-  c. Load w1_hit.amxd onto a MIDI track
+### 3) Ableton Live Setup
+- Install Max for Live
+- Copy the Max MIDI Effect folder into your Ableton project or device library
+- Load w1_hit.amxd onto a MIDI track
 
 🚀 Quick Start
 Train a model

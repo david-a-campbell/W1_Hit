@@ -119,7 +119,7 @@ These allow producers to dial in results that fit their groove.
 🤝 Contributing
 Contributions, issues, and suggestions are welcome.
 
-🎧 About
+🎧 About  
 Created by W1NGY — a project exploring AI-assisted music production tools.
 
 🇯🇲 Here are some example songs I created using W1_Hit. Samples contain vocals from Splice:  

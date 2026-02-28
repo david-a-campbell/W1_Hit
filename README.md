@@ -23,7 +23,7 @@ W1 Hit trains a Temporal Convolutional Network (TCN) on quantized MIDI grids rep
 During inference, the model generates new patterns conditioned on:
 * training data distribution
 * input samples
-* user-controlled parameters
+* user-controlled parameters  
 This enables musically coherent results suitable for production workflows.
 
 🎛 Use Cases
@@ -113,7 +113,7 @@ Use inside Ableton Live:
 W1 Hit exposes controllable parameters to shape output:
   * Variation — degree of deviation from input pattern
   * Temperature — randomness vs determinism
-  * Fill Depth — density of added notes
+  * Fill Depth — density of added notes  
 These allow producers to dial in results that fit their groove.
 
 🤝 Contributing

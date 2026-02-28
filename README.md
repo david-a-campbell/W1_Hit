@@ -41,7 +41,7 @@ This enables musically coherent results suitable for production workflows.
 W1_Hit/
 │
 ├── HitGenerator/                # Training pipeline
-│   ├── hit_generator.ipynb      # Jupyter notebook containing model definition and can be run to train the model and run inference
+│   ├── hit_generator.ipynb      # Jupyter notebook containing model definition. The main function can be run to train the model
 │   ├── mid_to_velocity.py       # Used to load MIDI files into the training set. Each voice in the MIDI is a new sample
 │   ├── midi_export.py           # For testing inference. Generates a MIDI file from the models output data
 │   ├── Models/                  # The output directory for trained models.

@@ -19,7 +19,7 @@ Designed for producers, sound designers, and researchers, W1 Hit focuses on cont
 
 🧠 How It Works
 
-W1 Hit trains a Temporal Convolutional Network (TCN) on quantized MIDI grids representing a single drum voice.
+W1 Hit trains a Temporal Convolutional Network (TCN) on quantized MIDI grids of 16th notes, 8 bars each, representing a single drum voice.
 During inference, the model generates new patterns conditioned on:
 * training data distribution
 * input samples

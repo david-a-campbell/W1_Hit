@@ -23,7 +23,8 @@ W1 Hit trains a Temporal Convolutional Network (TCN) on quantized MIDI grids rep
 During inference, the model generates new patterns conditioned on:
 * training data distribution
 * input samples
-* user-controlled parameters  
+* user-controlled parameters
+  
 This enables musically coherent results suitable for production workflows.
 
 🎛 Use Cases

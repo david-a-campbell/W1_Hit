@@ -4,6 +4,8 @@
 **Music is defined as a sound that repeats.**  
 **Rhythm shares the same definition and thus is the basis of all music.**
 
+![W1 Hit Interface](assets/images/w1_hit_annotated.png)
+
 W1 Hit is an AI system for generating expressive single-voice drum patterns. It trains on MIDI rhythms and produces musically coherent variations, fills, and new sequences that can be inserted directly into Ableton Live using a Max for Live device.
 
 Designed for producers, sound designers, and researchers, W1 Hit focuses on controllable generation rather than randomness — allowing users to shape output using parameters such as variation and temperature.

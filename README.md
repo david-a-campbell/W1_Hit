@@ -49,7 +49,7 @@ This enables musically coherent results suitable for production workflows.
 W1_Hit/
 │
 ├── Max MIDI Effect/             # Ableton integration. If you're an artist, you only need this folder
-│   ├── W1 Hit/                   # Root Directory for W1 Hit. Copy this to the Max MIDI Effect folder on your computer
+│   ├── W1_Hit/                   # Root Directory for W1 Hit. Copy this to the Max MIDI Effect folder on your computer
 │       ├── w1_hit.amxd              # Max for Live device
 │       ├── w1_hit.js                # Node for Max interface
 │       ├── clipcmd_to_live.js       # MIDI insertion logic

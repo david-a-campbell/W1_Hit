@@ -8,7 +8,7 @@ const { spawn } = require("child_process");
 
 // ---------------- CONFIG ----------------
 const CFG = {
-  pythonBin: "/opt/anaconda3/envs/python3_10/bin/python",
+  pythonBin: "/opt/anaconda3/envs/music-ai/bin/python",
   scriptName: "w1_hit_infer/inference.py",
 
   // inference defaults

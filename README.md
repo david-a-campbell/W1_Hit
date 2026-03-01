@@ -89,7 +89,14 @@ pip install -r requirements.txt
 
 1. Open Ableton Live  
 2. Go to **User Library → Presets → MIDI Effects → Max MIDI Effect**  
-3. Drag the all the files from the `Max MIDI Effect` folder into this folder  
+3. Copy the entire folder: **Max MIDI Effect/W1_Hit/** from this repository into that directory  
+
+⚠️ Important:  
+Copy the folder itself, not the files inside it.  
+The final path on your system should be: **User Library/Presets/MIDI Effects/Max MIDI Effect/W1_Hit/**  
+
+📌 Required Folder Structure:  
+After installation, the device file should be located at: **.../Max MIDI Effect/W1_Hit/w1_hit.amxd**  
 
 ## Thats all you need to run the Ableton Plugin if you want to use this as an artist. Below are steps to train your own AI model:
 

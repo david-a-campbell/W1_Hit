@@ -4,11 +4,19 @@ import json
 import random
 import argparse
 import traceback
-from typing import Dict, List, Tuple
-from random_midi_input import generate_random_single_voice_sample, RandomMidiInputConfig
-
 import torch
+from typing import Dict, List, Tuple
 
+# ---- make imports work no matter what cwd is ----
+THIS_DIR = os.path.dirname(os.path.abspath(__file__))          # .../w1_hit_infer
+DEVICE_ROOT = os.path.dirname(THIS_DIR)                        # .../W1 Hit
+
+if THIS_DIR not in sys.path:
+    sys.path.insert(0, THIS_DIR)
+if DEVICE_ROOT not in sys.path:
+    sys.path.insert(0, DEVICE_ROOT)
+
+from random_midi_input import generate_random_single_voice_sample, RandomMidiInputConfig
 from hit_generator import SingleVoiceTCN
 
 # New API (added in your updated model code)

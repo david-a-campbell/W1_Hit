@@ -8,7 +8,7 @@ const { spawn } = require("child_process");
 
 // ---------------- CONFIG ----------------
 const CFG = {
-  pythonBin: "/opt/anaconda3/envs/music-ai/bin/python",
+  pythonBin: null, // will be resolved dynamically
   scriptName: "w1_hit_infer/inference.py",
 
   // inference defaults
@@ -56,6 +56,17 @@ let lastAnchor = {
   vel: CFG.velDefault,
   beat: 0.0,
 };
+
+function getBundledPython() {
+  const venvDir = path.join(__dirname, ".venv");
+
+  const py =
+    process.platform === "win32"
+      ? path.join(venvDir, "Scripts", "python.exe")
+      : path.join(venvDir, "bin", "python");
+
+  return py;
+}
 
 // ---------------- UTILS ----------------
 function dpost(msg) {
@@ -140,12 +151,20 @@ function runPython() {
     // Big debugging header
     dpost(`CWD(node)=${process.cwd()}`);
     dpost(`__dirname=${__dirname}`);
-    dpost(`pythonBin=${CFG.pythonBin} exists=${exists(CFG.pythonBin)}`);
     dpost(`SCRIPT_PATH=${SCRIPT_PATH} exists=${exists(SCRIPT_PATH)}`);
     dpost(`args=${JSON.stringify(args)}`);
+    const pythonPath = getBundledPython();
+    dpost(`pythonPath=${pythonPath} exists=${exists(pythonPath)}`);
 
-    // IMPORTANT: set cwd so relative MIDI/Loader paths resolve to your patch folder
-    const p = spawn(CFG.pythonBin, args, {
+    if (!exists(pythonPath)) {
+      const msg =
+          "Python dependencies not installed.\n" +
+          "Run the installer script in the install/ folder first.";
+      reject(new Error(msg));
+      return;
+    }
+
+    const p = spawn(pythonPath, args, {
       cwd: __dirname,
       env: process.env,
     });
@@ -183,6 +202,46 @@ function runPython() {
         reject(new Error(`JSON parse failed: ${e.message}\nTail:\n${tail}`));
       }
     });
+  });
+}
+
+function getInstallerPath() {
+  return process.platform === "win32"
+    ? path.join(__dirname, "install", "install_win.bat")
+    : path.join(__dirname, "install", "install_mac.command");
+}
+
+let installInProgress = false;
+
+function runInstallerIfNeeded() {
+  const pythonPath = getBundledPython();
+  if (exists(pythonPath)) return;              // already installed
+  if (installInProgress) return;              // don't double-run
+
+  const installer = getInstallerPath();
+  if (!exists(installer)) {
+    maxApi.post(`[w1_hit] Missing installer: ${installer}`);
+    return;
+  }
+
+  installInProgress = true;
+  maxApi.post("[w1_hit] Python deps missing — launching installer...");
+
+  const p = spawn(installer, [], { cwd: __dirname, shell: true });
+
+  p.stdout?.on("data", (d) => maxApi.post(`[w1_hit][install] ${d.toString("utf8")}`));
+  p.stderr?.on("data", (d) => maxApi.post(`[w1_hit][install][err] ${d.toString("utf8")}`));
+
+  p.on("close", (code) => {
+    installInProgress = false;
+    maxApi.post(`[w1_hit] installer exited code=${code}`);
+
+    // Optional: tell user next step
+    if (code === 0) {
+      maxApi.post("[w1_hit] Install complete. You can now click Generate.");
+    } else {
+      maxApi.post("[w1_hit] Install failed. Check the install log above.");
+    }
   });
 }
 
@@ -237,6 +296,9 @@ async function generate() {
     maxApi.outlet(["error", msg]);
   }
 }
+
+// Auto-install on load (only if .venv missing)
+runInstallerIfNeeded();
 
 // ---------------- HANDLERS ----------------
 maxApi.post("[w1_hit] variation model ready");
@@ -295,6 +357,25 @@ maxApi.addHandler("vel_hi", (v) => {
   // keep lo <= hi
   if (velHi < velLo) velHi = velLo;
   dpost("vel_hi → " + velHi);
+});
+	
+maxApi.addHandler("install_deps", () => {
+  const installer =
+    process.platform === "win32"
+      ? path.join(__dirname, "install", "install_win.bat")
+      : path.join(__dirname, "install", "install_mac.command");
+
+  if (!exists(installer)) {
+    maxApi.post("Installer not found: " + installer);
+    return;
+  }
+
+  dpost("Running installer: " + installer);
+
+  spawn(installer, [], {
+    cwd: __dirname,
+    shell: true,
+  });
 });
 
 maxApi.addHandler("bang", generate);

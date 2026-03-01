@@ -18,7 +18,7 @@ Designed for producers, sound designers, and researchers, W1 Hit focuses on cont
 
 ✨ Features
 
-🧠 Train on single-voice MIDI drum patterns  
+🧠 Trained on single-voice MIDI drum patterns  
 🎚 Generate new rhythms and variations  
 🥁 Velocity-aware output (not just note placement)  
 🎛 Parameter-controlled generation  

@@ -49,16 +49,18 @@ This enables musically coherent results suitable for production workflows.
 W1_Hit/
 │
 ├── Max MIDI Effect/             # Ableton integration. If you're an artist, you only need this folder
-│   ├── w1_hit.amxd              # Max for Live device
-│   ├── w1_hit.js                # Node for Max interface
-│   ├── clipcmd_to_live.js       # MIDI insertion logic
-│   └── w1_hit_infer/            # Inference engine
-│       ├── inference.py         # Runs inference on the model in the Loader dir. The output is sent back to a MIDI clip in Ableton Live
-│       ├── hit_generator.py     # Contains the model definition. Basically a stripped down version of hit_generator.ipynb
-│       ├── mid_to_velocity.py   # Used to load MIDI files used as seed data for inference
-│       ├── Loader/              # Dir to store the model. inference.py loads the first model it finds in this folder
-│       ├── MIDI/                # Stores MIDI files to be used as seed data for inference
-│       └── random_midi_input.py # Generates MIDI data for use as the seed input to inference, in place of MIDI files
+│   ├── W1 Hit                   # Root Directory for W1 Hit. Copy this to the Max MIDI Effect folder on your computer
+│       ├── 
+│       ├── w1_hit.amxd              # Max for Live device
+│       ├── w1_hit.js                # Node for Max interface
+│       ├── clipcmd_to_live.js       # MIDI insertion logic
+│       └── w1_hit_infer/            # Inference engine
+│           ├── inference.py         # Runs inference on the model in the Loader dir. The output is sent back to a MIDI clip in Ableton Live
+│           ├── hit_generator.py     # Contains the model definition. Basically a stripped down version of hit_generator.ipynb
+│           ├── mid_to_velocity.py   # Used to load MIDI files used as seed data for inference
+│           ├── Loader/              # Dir to store the model. inference.py loads the first model it finds in this folder
+│           ├── MIDI/                # Stores MIDI files to be used as seed data for inference
+│           └── random_midi_input.py # Generates MIDI data for use as the seed input to inference, in place of MIDI files
 │
 ├── HitGenerator/                # Training pipeline. For the more technical minded
 │   ├── hit_generator.ipynb      # Jupyter notebook containing model definition. The main function can be run to train the model

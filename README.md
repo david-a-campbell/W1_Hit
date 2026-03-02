@@ -54,9 +54,9 @@ W1_Hit/
 │       ├── w1_hit.js                 # Node for Max interface
 │       ├── clipcmd_to_live.js        # MIDI insertion logic
 │       ├── install/                  # Folder containing dependencies and utilities to install them
-│       │   ├── install_mac.command  # Installs python dependencies for mac
-│       │   ├── install_win.bat      # Installs python dependencies for windows
-│       │   └── requirements.txt     # List of python dependencies
+│       │   ├── install_mac.command   # Installs python dependencies for mac
+│       │   ├── install_win.bat       # Installs python dependencies for windows
+│       │   └── requirements.txt      # List of python dependencies
 │       │
 │       └── w1_hit_infer/             # Inference engine
 │           ├── inference.py          # Runs inference on the model in the Loader dir. The output is sent back to a MIDI clip in Ableton Live

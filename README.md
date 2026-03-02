@@ -63,7 +63,7 @@ W1_Hit/
 │           ├── hit_generator.py      # Contains the model definition. Basically a stripped down version of hit_generator.ipynb
 │           ├── mid_to_velocity.py    # Used to load MIDI files used as seed data for inference
 │           ├── Loader/               # Dir to store the model. inference.py loads the first model it finds in this folder
-│           ├── MIDI/                 # Stores MIDI files to be used training data and as seed data for inference
+│           ├── MIDI/                 # Stores MIDI files to be used as training data and as seed data for inference
 │           └── random_midi_input.py  # Generates MIDI data for use as the seed input to inference, in place of MIDI files
 │
 ├── HitGenerator/                # Training pipeline. For the more technical minded

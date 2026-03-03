@@ -6,11 +6,7 @@
 
 ## 🎥 Watch W1 Hit in Action
 
-<p align="center">
-  <a href="https://www.youtube.com/watch?v=ORlLNOC8kSM">
-    <img src="https://img.youtube.com/vi/ORlLNOC8kSM/maxresdefault.jpg" width="800">
-  </a>
-</p>
+[![Watch Demo](assets/images/youtube.png)](https://www.youtube.com/watch?v=ORlLNOC8kSM)
 
 ![W1 Hit Interface](assets/images/w1_hit_annotated.png)
 

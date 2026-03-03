@@ -4,6 +4,12 @@
 **Music is defined as a sound that repeats.**  
 **Rhythm shares the same definition and thus is the basis of all music.**
 
+<p align="center">
+  <a href="https://www.youtube.com/watch?v=ORlLNOC8kSM">
+    <img src="https://img.youtube.com/vi/ORlLNOC8kSM/maxresdefault.jpg" width="800">
+  </a>
+</p>
+
 ![W1 Hit Interface](assets/images/w1_hit_annotated.png)
 
 🇯🇲 Example songs created with W1 Hit:  

@@ -44,38 +44,20 @@ function get_playing_position() {
   }
 }
 
-// Called as: remove_notes_extended 0 127 0 9999
-function remove_notes_extended(pitch_lo, pitch_hi, time_lo, time_hi) {
+function remove_notes_pitch_span(pitch, time_lo, time_hi) {
   ensure_clip();
 
-  // Coerce to numbers
-  var plo = Number(pitch_lo);
-  var phi = Number(pitch_hi);
-  var tlo = Number(time_lo);
+  var p = Math.max(0, Math.min(127, Math.floor(Number(pitch))));
+  var tlo = Math.max(0, Number(time_lo));
   var thi = Number(time_hi);
-
-  // Guard: never delete if any arg is missing/NaN
-  if (!isFinite(plo) || !isFinite(phi) || !isFinite(tlo) || !isFinite(thi)) {
-    post("[clipcmd_to_live] remove_notes_extended: BAD ARGS -> " +
-      pitch_lo + " " + pitch_hi + " " + time_lo + " " + time_hi + "\n");
-    return;
-  }
-
-  // Clamp and integerize pitch (Live expects MIDI note numbers)
-  plo = Math.max(0, Math.min(127, Math.floor(plo)));
-  phi = Math.max(0, Math.min(127, Math.floor(phi)));
-
-  // Optional: clamp times too
-  if (tlo < 0) tlo = 0;
+  if (!isFinite(p) || !isFinite(tlo) || !isFinite(thi)) return;
   if (thi < tlo) thi = tlo;
 
   var live_api = new LiveAPI("live_set view detail_clip");
-  try {
-	// TODO: Fix remove call	
-    //live_api.call("remove_notes_extended", plo, phi, tlo, thi);
-  } catch (e) {
-    post("[clipcmd_to_live] remove_notes_extended error: " + e + "\n");
-  }
+  var time_span = thi - tlo;
+
+  // delete only one pitch lane
+  live_api.call("remove_notes_extended", p, 1, tlo, time_span);
 }
 
 // Called as: add_new_notes "<json string>"

@@ -286,7 +286,8 @@ async function generate() {
 
     if (CFG.applyToClip) {
       // NOTE: delete/add are done via clipcmd downstream
-      maxApi.outlet(["clipcmd", "remove_notes_extended", CFG.pitch, CFG.pitch, 0, 9999]);
+	  const delPitch = lastAnchor.have ? lastAnchor.pitch : CFG.pitch;
+	  maxApi.outlet(["clipcmd", "remove_notes_pitch_span", delPitch, 0, 9999]);
       maxApi.outlet(["clipcmd", "add_new_notes", JSON.stringify({ notes })]);
     }
   } catch (e) {

@@ -6,11 +6,7 @@
 
 ## 🎥 Watch W1 Hit in Action
 
-<p align="center">
-  <a href="https://www.youtube.com/watch?v=ORlLNOC8kSM">
-    <img src="https://img.youtube.com/vi/ORlLNOC8kSM/maxresdefault.jpg" width="800">
-  </a>
-</p>
+[![Watch Demo](assets/images/youtube.png)](https://www.youtube.com/watch?v=ORlLNOC8kSM)
 
 ![W1 Hit Interface](assets/images/w1_hit_annotated.png)
 
@@ -146,7 +142,7 @@ Use inside Ableton Live:
 W1 Hit exposes controllable parameters to shape output:
   * Variation — degree of deviation from input pattern
   * Temperature — randomness vs determinism
-  * Fill Depth — density of added notes  
+  * Iterations — Refinement passes  
 These allow producers to dial in results that fit their groove.
 
 🤝 Contributing

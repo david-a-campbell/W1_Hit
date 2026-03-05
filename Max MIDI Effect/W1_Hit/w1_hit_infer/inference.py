@@ -82,7 +82,8 @@ def load_first_model(device: str = "cpu", debug: bool = False) -> SingleVoiceTCN
     # Try both layouts:
     # - cwd = patch dir: w1_hit_infer/Loader exists
     # - cwd = w1_hit_infer: Loader exists
-    loader_dir = resolve_first_existing_dir(["w1_hit_infer/Loader", "Loader"])
+    loader_dir = resolve_first_existing_dir(["w1_hit_infer/Loader/models", "Loader/models"])
+
     if loader_dir is None:
         raise FileNotFoundError(
             "Could not find Loader directory. Tried: w1_hit_infer/Loader and Loader"

@@ -11,7 +11,7 @@
 ![W1 Hit Interface](assets/images/w1_hit_annotated.png)
 
 🇯🇲 Example songs created with W1 Hit:  
-[Riddim 1](https://drive.google.com/file/d/1_0SbdAahy8-wQNbpLn0izOkheZ4mTRIL/view?usp=sharing)
+[Riddim 1](https://drive.google.com/file/d/1S0ALTq5Npl47KQ3VaoLrNTd0RcNZU6xY/view?usp=sharing)
 [Riddim 2](https://drive.google.com/file/d/1A7YmxghzXO1f03oh6YUJPuZ4DZBoisaK/view?usp=sharing)
 [Riddim 3](https://drive.google.com/file/d/1oqbPUerFjXpN8j4oxPI2FK8zR71hyeVt/view?usp=sharing)
 [Riddim 4](https://drive.google.com/file/d/13NxNwOmxnKZjr7FRSggYpGjnPOHLx6pq/view?usp=sharing)

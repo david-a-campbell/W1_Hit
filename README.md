@@ -8,7 +8,7 @@
 
 [![Watch Demo](assets/images/youtube.png)](https://www.youtube.com/watch?v=ORlLNOC8kSM)
 
-![W1 Hit Interface](assets/images/w1_hit_annotated.png)
+![W1 Hit current controls](assets/images/w1_hit_controls_1.0.png)
 
 🇯🇲 Example songs created with W1 Hit:  
 [Riddim 1](https://drive.google.com/file/d/1S0ALTq5Npl47KQ3VaoLrNTd0RcNZU6xY/view?usp=sharing)

@@ -83,61 +83,43 @@ W1_Hit/
 ├── requirements.txt
 └── README.md
 ```
-🛠 Installation
-1) Clone the repository
-```
-git clone https://github.com/david-a-campbell/W1_Hit.git
-cd W1_Hit
-```
-2) Install Python dependencies
-```
-pip install -r requirements.txt
-```
-(Recommended: use a virtual environment)
+## Installation — W1 Hit 1.0.0
 
-### 3) Ableton Live Setup
+Requires Ableton Live 11 or later with Max for Live (Suite, or Standard with the Max for Live add-on), Max 8.5.8 or later with Node for Max, and Python 3.10–3.12. Python 3.11 is recommended. The device runs inference locally on the CPU; no API key or subscription is needed.
 
-1. Open Ableton Live  
-2. Go to **User Library → Presets → MIDI Effects → Max MIDI Effect**  
-3. Copy the entire folder: **Max MIDI Effect/W1_Hit/** from this repository into that directory  
+1. Download `W1_Hit-1.0.0.zip` from this repository's Releases page and extract it.
+2. Copy the complete `W1_Hit` folder to **User Library → Presets → MIDI Effects → Max MIDI Effect**. Keep the scripts, model, and MIDI folders together with `w1_hit.amxd`.
+3. Before opening the device, run `install/install_mac.command` on macOS or `install/install_win.bat` on Windows. The installer needs internet access to download Python packages and creates a `.venv` inside the device folder. It may install Python via Homebrew on macOS or winget on Windows if a compatible Python is missing. To manage Python yourself, install Python 3.11 from python.org first. Loading the device does not automatically install software.
+4. Wait for the installer to report **Done**, then drag `w1_hit.amxd` onto a MIDI track before a Drum Rack or instrument.
 
-⚠️ Important:  
-Copy the folder itself, not the files inside it.  
-The final path on your system should be: **User Library/Presets/MIDI Effects/Max MIDI Effect/W1_Hit/**  
+macOS: if double-clicking the installer does not work, open Terminal, type `bash ` (with a trailing space), drag `install_mac.command` into Terminal, then press Return. This also works when the folder path contains spaces.
 
-📌 Required Folder Structure:  
-After installation, the device file should be located at: **.../Max MIDI Effect/W1_Hit/w1_hit.amxd**  
+### Generate a pattern
 
-## Thats all you need to run the Ableton Plugin if you want to use this as an artist. Below are steps to train your own AI model:
+1. Create or select a MIDI clip in Clip View. Use an eight-bar clip in 4/4 to hear the full generated pattern.
+2. Enable **Voice Select** and play the desired drum note. Voice Select turns off after that note. The default pitch is MIDI note 36.
+3. A bundled MIDI rhythm provides the seed. **Lock Seed** reuses the previous seed so you can explore variations of the same rhythm.
+4. Set Variation, Iterations, and Temperature, then click the round Generate button. Wait for generation to finish before generating again.
 
-🚀 Quick Start
-Train a model
+**Save or duplicate your clip first.** Generation replaces the selected pitch lane in the currently selected clip (beats 0–9999); other pitches remain unchanged. Output is 128 sixteenth-note steps, or eight bars of 4/4, starting at beat zero. Notes outside the clip loop will not be heard until you extend its loop.
 
-Place MIDI files into the training dataset folder (called MIDI) and run:
-```
-python HitGenerator/hit_generator.py
-```
-Trained models will be saved in:
-```
-HitGenerator/Models/
-```
+### Troubleshooting
 
-Copy your trained model to:
-```
-Max MIDI Effect/w1_hit_infer/Loader
-```
+Open the Max editor and Max Console for dependency or inference errors. If Python dependencies are missing, rerun the installer in the same W1_Hit folder that contains the device. If no notes appear, select an editable MIDI clip in Clip View and check the selected drum pitch. Do not move an installed `.venv` between computers; rerun the installer on each computer.
 
-Generate patterns:
-Inference is handled by:
-```
-Max MIDI Effect/w1_hit_infer/inference.py
-```
-This script loads a trained model and generates MIDI patterns.
+The macOS installer, generation, audio playback, pitch-lane replacement, and preservation of other pitch lanes were tested in Live 12.4.6. The device also loaded in Live 11.3.43. Windows installation remains untested.
 
-Use inside Ableton Live:
-1. Insert the Max for Live device on a MIDI track
-2. Trigger generation
-3. Generated patterns are inserted into the MIDI clip
+Known limitation: a sparse seed can produce an empty rhythm, which clears the selected pitch lane. Duplicate your clip before experimenting.
+
+### Training your own model
+
+The training workflow is in `HitGenerator/hit_generator.ipynb`; run its training cells with your MIDI dataset. Copy a compatible model checkpoint to `Max MIDI Effect/W1_Hit/w1_hit_infer/Loader/models/`, leaving only the model you intend to use there. Models must match the `SingleVoiceTCN` configuration expected by the inference code.
+
+### Distribution and development
+
+W1 Hit is MIT licensed; see LICENSE. This device requires companion Python code, model weights, and MIDI seeds and is distributed as a complete ZIP through GitHub Releases. On maxforlive.com, use an **external/reference download** listing linking to the release ZIP. Uploading the small unfrozen `.amxd` alone will omit required files. See the site's [distribution rules](https://maxforlive.com/library/zip.php).
+
+Build the release ZIP with `python3 scripts/package_release.py`. It includes the device, runtime source, model, MIDI seeds, installer, README, and license; it excludes local virtual environments, seed caches, notebook checkpoints, and OS metadata.
 
 🎚 Generation Parameters
 

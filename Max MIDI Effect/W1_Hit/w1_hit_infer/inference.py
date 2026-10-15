@@ -41,7 +41,7 @@ def log(debug: bool, msg: str) -> None:
 
 def resolve_seed_cache_path() -> str:
     # Store next to Loader so it works regardless of cwd (patch dir vs w1_hit_infer dir)
-    loader_dir = resolve_first_existing_dir(["w1_hit_infer/Loader", "Loader"])
+    loader_dir = resolve_first_existing_dir([os.path.join(THIS_DIR, "Loader")])
     if loader_dir is None:
         return "seed_input_cache.pt"
     return os.path.join(loader_dir, "seed_input_cache.pt")
@@ -55,7 +55,7 @@ def save_seed_input(path: str, hit: torch.Tensor, vel: torch.Tensor, meta: dict)
 def load_seed_input(path: str) -> tuple[torch.Tensor, torch.Tensor, dict] | None:
     if not os.path.exists(path):
         return None
-    obj = torch.load(path, map_location="cpu", weights_only=False)
+    obj = torch.load(path, map_location="cpu", weights_only=True)
     return obj["hit"].float(), obj["vel"].float(), obj.get("meta", {})
 
 # ---------------------------
@@ -65,7 +65,7 @@ def load_seed_input(path: str) -> tuple[torch.Tensor, torch.Tensor, dict] | None
 def find_first_pt_file(directory: str) -> str | None:
     if not os.path.isdir(directory):
         return None
-    for filename in os.listdir(directory):
+    for filename in sorted(os.listdir(directory)):
         if filename.endswith(".pt"):
             return os.path.join(directory, filename)
     return None
@@ -82,7 +82,7 @@ def load_first_model(device: str = "cpu", debug: bool = False) -> SingleVoiceTCN
     # Try both layouts:
     # - cwd = patch dir: w1_hit_infer/Loader exists
     # - cwd = w1_hit_infer: Loader exists
-    loader_dir = resolve_first_existing_dir(["w1_hit_infer/Loader/models", "Loader/models"])
+    loader_dir = resolve_first_existing_dir([os.path.join(THIS_DIR, "Loader", "models")])
 
     if loader_dir is None:
         raise FileNotFoundError(
@@ -194,7 +194,7 @@ def pick_random_nonempty_sample_from_midi_folder(
     # - OR user passes w1_hit_infer/MIDI
     candidates = [midi_dir]
     if midi_dir == "MIDI":
-        candidates.append("w1_hit_infer/MIDI")
+        candidates.append(os.path.join(THIS_DIR, "MIDI"))
     resolved = next((d for d in candidates if os.path.isdir(d)), None)
 
     log(debug, f"midi_dir arg={midi_dir} candidates={candidates} resolved={resolved}")

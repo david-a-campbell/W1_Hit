@@ -205,7 +205,7 @@ fi
 echo "Using Python: $PY ($(python_version "$PY"))"
 
 if [ -d "$VENV" ]; then
-  VENV_EXE="$($VENV/bin/python -c 'import sys; print(sys.executable)' 2>/dev/null || echo invalid)"
+  VENV_EXE="$("$VENV/bin/python" -c 'import sys; print(sys.executable)' 2>/dev/null || echo invalid)"
   if [ ! -x "$VENV/bin/python" ] || ! version_ok "$VENV/bin/python" || is_blocked_python "$VENV_EXE"; then
     echo "Existing virtual environment is incompatible. Recreating it..."
     rm -rf "$VENV"

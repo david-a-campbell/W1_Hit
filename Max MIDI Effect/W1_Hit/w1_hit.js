@@ -214,10 +214,7 @@ function getInstallerPath() {
 let installInProgress = false;
 
 function runInstallerIfNeeded() {
-  const pythonPath = getBundledPython();
-  if (exists(pythonPath)) return;              // already installed
-  if (installInProgress) return;              // don't double-run
-
+  if (exists(getBundledPython()) || installInProgress) return;
   const installer = getInstallerPath();
   if (!exists(installer)) {
     maxApi.post(`[w1_hit] Missing installer: ${installer}`);
@@ -225,23 +222,22 @@ function runInstallerIfNeeded() {
   }
 
   installInProgress = true;
-  maxApi.post("[w1_hit] Python deps missing — launching installer...");
-
-  const p = spawn(installer, [], { cwd: __dirname, shell: true });
-
-  p.stdout?.on("data", (d) => maxApi.post(`[w1_hit][install] ${d.toString("utf8")}`));
-  p.stderr?.on("data", (d) => maxApi.post(`[w1_hit][install][err] ${d.toString("utf8")}`));
-
-  p.on("close", (code) => {
+  maxApi.post("[w1_hit] Installing Python dependencies. Wait for completion before generating.");
+  // Pass the path as an argument: Ableton's default library path contains spaces.
+  const command = process.platform === "win32" ? (process.env.ComSpec || "cmd.exe") : "/bin/bash";
+  const args = process.platform === "win32" ? ["/d", "/s", "/c", `"${installer}"`] : [installer];
+  const child = spawn(command, args, { cwd: __dirname, windowsHide: true });
+  child.stdout.on("data", (d) => maxApi.post(`[w1_hit][install] ${d.toString("utf8")}`));
+  child.stderr.on("data", (d) => maxApi.post(`[w1_hit][install][err] ${d.toString("utf8")}`));
+  child.on("error", (error) => {
     installInProgress = false;
-    maxApi.post(`[w1_hit] installer exited code=${code}`);
-
-    // Optional: tell user next step
-    if (code === 0) {
-      maxApi.post("[w1_hit] Install complete. You can now click Generate.");
-    } else {
-      maxApi.post("[w1_hit] Install failed. Check the install log above.");
-    }
+    maxApi.post(`[w1_hit] Installer could not start: ${error.message}`);
+  });
+  child.on("close", (code) => {
+    installInProgress = false;
+    maxApi.post(code === 0
+      ? "[w1_hit] Install complete. You can now click Generate."
+      : "[w1_hit] Install failed. Run the installer manually to see the error.");
   });
 }
 
@@ -268,7 +264,14 @@ function toNotes(hit, vel) {
 }
 
 // ---------------- GENERATE ----------------
+let generationInProgress = false;
+
 async function generate() {
+  if (generationInProgress) {
+    maxApi.post("[w1_hit] Generation is already running.");
+    return;
+  }
+  generationInProgress = true;
   dpost(`generate() variation=${variation} fillDepth=${fillDepth} temperature=${temperature}`);
 
   try {
@@ -279,6 +282,12 @@ async function generate() {
       throw new Error(`Bad JSON shape: expected {hit:[...], vel:[...]}, got: ${JSON.stringify(json).slice(0, 400)}`);
     }
 
+    const steps = CFG.bars * CFG.stepsPerBar;
+    if (json.hit.length !== steps || json.vel.length !== steps ||
+        json.hit.some((v) => v !== 0 && v !== 1) ||
+        json.vel.some((v) => !Number.isInteger(v) || v < 0 || v > 127)) {
+      throw new Error("Invalid generated notes; the clip was left unchanged.");
+    }
     const notes = toNotes(json.hit, json.vel);
 
     maxApi.outlet(["hitvel", JSON.stringify(json)]);
@@ -295,11 +304,15 @@ async function generate() {
     const msg = (e && e.message) ? e.message : String(e);
     dpost("ERROR: " + msg);
     maxApi.outlet(["error", msg]);
+  } finally {
+    generationInProgress = false;
   }
 }
 
-// Auto-install on load (only if .venv missing)
-runInstallerIfNeeded();
+// Installation is explicit: opening a set must not install system software.
+if (!exists(getBundledPython())) {
+  maxApi.post("[w1_hit] Run the installer in the install/ folder before generating.");
+}
 
 // ---------------- HANDLERS ----------------
 maxApi.post("[w1_hit] variation model ready");
@@ -360,24 +373,7 @@ maxApi.addHandler("vel_hi", (v) => {
   dpost("vel_hi → " + velHi);
 });
 	
-maxApi.addHandler("install_deps", () => {
-  const installer =
-    process.platform === "win32"
-      ? path.join(__dirname, "install", "install_win.bat")
-      : path.join(__dirname, "install", "install_mac.command");
-
-  if (!exists(installer)) {
-    maxApi.post("Installer not found: " + installer);
-    return;
-  }
-
-  dpost("Running installer: " + installer);
-
-  spawn(installer, [], {
-    cwd: __dirname,
-    shell: true,
-  });
-});
+maxApi.addHandler("install_deps", runInstallerIfNeeded);
 
 maxApi.addHandler("bang", generate);
 maxApi.addHandler("int", (n) => { if (n) generate(); });
